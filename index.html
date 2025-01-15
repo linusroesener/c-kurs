@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html><head>
+    <meta charset="utf-8" />
+    <title>C Cheat Sheet</title>
+    <style>
+     body {
+	 margin-right: 1em;
+	 margin-left: 1em;
+     }
+     h3 {
+	 border-bottom: 1px solid black;
+	 width: 100%;
+     }
+     section {
+	 /* width: 50%; */
+     }
+     code pre {
+	 padding-left: 1em;
+	 padding-top: 1ex;
+	 padding-bottom: 1ex;
+	 background: #eee;
+	 border: 1px solid #444;
+	 /* width: 100%; */
+     }
+    </style>
+</head><body>
+    <header><h1>C Cheat Sheet</h1></header>
+    <main>
+	<section>
+	    <h3>Lexical Conventions</h3>
+	    <!-- Comments, variabel names, ints, floats, character constants .... -->
+	</section>
+	<section>
+	    <h3>Declarations & Definitions</h3>
+	    <section>
+		<h4>Declarations</h4>
+		<p>Declarations make things with names (variables, functions and types)
+		    known to the compiler.  We have to declare things <em>before</em> we
+		    use them.</p>
+		<code><pre>
+int    i;               /* i is an integer */
+char   b1, b2, b3;      /* b1, b2 and b3 are characters */
+float  result;          /* result is a (single precision) floating point number */</pre></code>
+		<code><pre>
+int   *ptr;             /* ptr is a pointer to an int */
+char **ptr2ptr;         /* ptr2ptr is a pointer to a pointer to a char */
+int    list[10];        /* list is an array of 10 int elements */
+float  points[3][2];    /* points is an array of 3 elements, each element is an array of 2 floats */</pre></code>
+		<code><pre>
+void   doStuff(void);   /* doStuff is a function taking no arguments and return no result */
+int    roundFloat(float);    /* round is a function taking a float and returning an int */
+struct Point;           /* Point is the name of a struct type */
+union  SExp;            /* SExp is the name of a union type */
+enum   Type;            /* Type is an enum */
+struct { int x, y; } aPoint; /* aPoint is a struct { int x, y; } */
+struct Point anotherPoint; /* anotherPoint is a struct Point */
+int a, *b, c(void), d[15]; /* a is an int, b is a pointer to an int c is a function returning int and d is an array of ints */</pre></code>
+	    </section>
+	    <section>
+		<h4>Definitions</h4>
+		<p>Definitions also declare names, they additionally associate a
+		    value with them.</p>
+		<code><pre>
+int i = 0;
+float PI = 3.141, PHI = 1.618, E = 2.718;
+int *ptr1 = &i, ptr2 = NULL;
+int list[10] = {0, 1, 2, 3, 4, 5, 6, 7, 8, 9};
+float points[3][2] = { {0.0, 1.0}, {1.0, 0.0}, {-1.0, 0.0} };
+void doNothing() {}
+int roundFloat(float f) {
+    return (int) (f + 0.5);
+}
+union ipAddr {
+    int type;
+    struct { int type; char addr[4]; } ipv4;
+    struct { int type; char addr[16]; } ipv6;
+};
+struct Point { float x, y; } point1 = { 0.0, 0.0 }, point2 = { -1.0, -1.0 };</pre></code>
+	</section>
+	<section>
+	    <h3>Datatypes</h3>
+	    <section>
+		<h4>Basic Datatypes (Scalar Types)</h4>
+		<code><pre>
+/* Declaring and defining variables */
+int a, b = 2, c = 5;
+/* Arithmetic as you would expect */
+a = c + b * b;
+a++;
+c = a / 15 * (b % 10);
+
+	    </section>
+	    <section>
+		<h4>Structs & Unions</h4>
+	    </section>
+	    <section>
+		<h4>Pointers & Arrays</h4>
+	    </section>
+	    <section>
+		<h4>Typedef</h4>
+	    </section>
+	    <section>
+		<h4>sizeof</h4>
+	    </section>
+	</section>
+	<section>
+	    <h3>Operators</h3>
+	    <table id="operators">
+		<tr><th>Operator</th><th>Associativity</th></tr>
+		<tr><td><code>[] -> . ++ --</code></td><td>postfix</td></tr>
+		<tr><td><code>! ~ ++ -- + - * & (<i>type</i>) sizeof</code></td><td>prefix</td></tr>
+		<tr><td><code>* / %</code></td><td>left to right</td></tr>
+		<tr><td><code>+ -</code></td><td>left to right</td></tr>
+		<tr><td><code><< >></code></td><td>left to right</td></tr>
+		<tr><td><code>< <= > >=</code></td><td>left to right</td></tr>
+		<tr><td><code>== !=</code></td><td>left to right</td></tr>
+		<tr><td><code>&</code></td><td>left to right</td></tr>
+		<tr><td><code>^</code></td><td>left to right</td></tr>
+		<tr><td><code>|</code></td><td>left to right</td></tr>
+		<tr><td><code>&&</code></td><td>left to right</td></tr>
+		<tr><td><code>||</code></td><td>left tot right</td></tr>
+		<tr><td><code>?:</code></td><td>right to left</td></tr>
+		<tr><td><code>= += -= *= /= %= ^= |= <<= >>=</code></td>
+		    <td>right to left</td></tr>
+		<tr><td><code>,</code></td><td>left to right</td></tr>
+	    </table>
+	</section>
+	<section>
+	    <h3>Expressions & Statements</h3>
+	</section>
+	<section>
+	    <h3>Control Statements</h3>
+	</section>
+	<section>
+	    <h3>Scope & Storage Types</h3>
+	</section>
+	<section>
+	    <h3>The C Preprocessor</h3>
+	</section>
+	<section>
+	    <h3>The Standard Library</h3>
+	    <section>
+		<h3>Input / Output</h3>
+		<code>#include &lt;stdio.h&gt;</code>
+	    </section>
+	</section>
+	<section>
+	    <h3>Unix Programming</h3>
+	</section>
+</body></html>
