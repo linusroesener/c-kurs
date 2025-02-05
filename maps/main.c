@@ -5,6 +5,7 @@
 #include <stdio.h>
 #include <stdint.h>
 
+#include "util.h"
 #include "hashtable.h"
 
 #define MAX_WORD_SIZE (1 << 13)-1
@@ -31,7 +32,7 @@ int
 main(void)
 {
   char *word = NULL;
-  int totalcount = 0, i;
+  int totalcount = 0, sum = 0, i, printed = 0;
   Hashtable *h = ht_create();
   Entry **entries;
   uint64_t nentries;
@@ -47,19 +48,32 @@ main(void)
   //printf("total words: %d\n", totalcount);
   //printf("table size: %d\n", ht_size(h));
 
+  printf("#tokens: %d\n", totalcount);
+  printf("#types: %d\n", ht_size(h));
+  printf(" ... pruning ...\n");
   nentries = ht_size(h);
   entries = ht_entries(h);
-  totalcount = 0;
+  sum = 0;
   for (i=0; i < nentries; i++) {
     entry = entries[i];
-    if (i < 0)
+    if (ht_entry_value(entry) <= 5000) {
+      char *key = ht_entry_key(entry);
+      ht_delete(h, key);
+      continue;
+    }
+    if (0 && printed < 20) {
       printf("%d: <%s : %d>\n",
 	     i,
 	     ht_entry_key(entry),
 	     ht_entry_value(entry));
-    totalcount += ht_entry_value(entry);
+      printed += 1;
+    }
+    sum += ht_entry_value(entry);
+    
   }
-  //printf("new total count: %d\n", totalcount);
+  //if (sum != totalcount) error("sum and totalcount are not the same");
+  printf("#tokens: %d\n", sum);
+  printf("#types: %d\n", ht_size(h));
 
   // Free words?
   ht_destroy(h);

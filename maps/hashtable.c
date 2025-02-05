@@ -8,8 +8,8 @@
 
 #include "hashtable.h"
 
-//#define INITIAL_SIZE (1 << 9)
-#define INITIAL_SIZE (1 << 16)
+#define INITIAL_SIZE (1 << 3)
+//#define INITIAL_SIZE (1 << 17)
 
 typedef struct Entry Entry;
 struct Entry {
@@ -129,6 +129,30 @@ ht_put(Hashtable *h, char *key, int value)
     entry = entry->next;
   }
 }
+
+
+void
+ht_delete(Hashtable *h, char *key)
+{
+  uint64_t hash = compute_hash(key);
+  Entry *entry = h->entries[hash % h->capacity], *preventry = NULL;
+  while (entry) {
+    if (0 == strcmp(entry->key, key)) {
+      h->size -= 1;
+      if (!preventry)
+	// Entry was the first one
+	h->entries[hash % h->capacity] = entry->next;
+      else {
+	preventry->next = entry->next;
+	entry_destroy(entry);
+      }
+      break;
+    }
+    preventry = entry;
+    entry = entry->next;
+  }
+}
+
 
 uint64_t
 ht_size(Hashtable *h)

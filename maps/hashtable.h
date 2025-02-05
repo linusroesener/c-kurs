@@ -8,6 +8,7 @@ void ht_destroy(Hashtable *);
 int ht_in(Hashtable *, char *);
 int ht_get(Hashtable *, char *);
 void ht_put(Hashtable *, char *, int);
+void ht_delete(Hashtable *, char *);
 
 uint64_t ht_size(Hashtable *);
 
