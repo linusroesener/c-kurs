@@ -1,0 +1,27 @@
+
+hello.
+% A Comment to test basic capabilities.
+anatom. anotheratom.
+{tuple}. {tuple, test}. % Another comment at the end of a line
+{{a, tuple}, {that, is, nested}}.
+{another, {{tuple, with, {even}}, {more, nesting}}}.
+struct. struct(test). just(more, tests, with, 1, struct).
+now(even(a, nested), struct(ure)).
+% Variable tests
+Var1. Var2. _. _var4.
+{X, Y, X}.
+{_, _, _}.
+{_X, _X, _X}.
+{tuple, tuple, tuple}.
+% Quoted atoms
+'quoted atom'.
+'quoted functor'('yes').
+'quoted atom with a '''. ''''.
+% Lists
+[].
+[X | Xs].
+[X, Y].
+[X, Y | XYs].
+[a, list].
+[a, peculiar | list ].
+
